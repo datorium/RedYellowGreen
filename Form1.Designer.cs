@@ -1,6 +1,6 @@
 ﻿namespace RedYellowGreen
 {
-    partial class Form1
+    partial class TrafficLights
     {
         /// <summary>
         /// Required designer variable.
