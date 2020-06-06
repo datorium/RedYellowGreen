@@ -12,7 +12,8 @@ namespace RedYellowGreen
 {
     public partial class TrafficLights : Form
     {
-        private Timer timerSwitch;
+        private Timer timerSwitch = null;
+        private Timer timerBlink = null;
         private int timeCounter = 0;
 
         public TrafficLights()
@@ -20,6 +21,7 @@ namespace RedYellowGreen
             InitializeComponent();
             InitializeTrafficLights();
             InitializeTimerSwitch();
+            InitializeTimerBlink();
         }
 
         private void InitializeTimerSwitch()
@@ -30,32 +32,55 @@ namespace RedYellowGreen
             timerSwitch.Start();
         }
 
+        private void InitializeTimerBlink()
+        {
+            timerBlink = new Timer();
+            timerBlink.Interval = 200;
+            timerBlink.Tick += new EventHandler(TimerBlink_Tick);
+        }
+
+        private void TimerBlink_Tick(object sender, EventArgs e)
+        {
+            if(GreenLight.BackColor == Color.Gray)
+            {
+                GreenLight.BackColor = Color.Green;
+            }
+            else
+            {
+                GreenLight.BackColor = Color.Gray;
+            }
+        }
+
         private void TimerSwitch_Tick(object sender, EventArgs e)
         {
-            if(timeCounter == 0)
+            SwitchLights();
+        }
+
+        private void SwitchLights()
+        {
+            switch (timeCounter)
             {
-                RedLight.BackColor = Color.Red; //red on
-            }
-            else if(timeCounter == 3)
-            {
-                RedLight.BackColor = Color.Gray; //red off
-                YellowLight.BackColor = Color.Yellow; //yellow on
-            }
-            else if (timeCounter == 6)
-            {
-                YellowLight.BackColor = Color.Gray; //yellow off
-                GreenLight.BackColor = Color.Green; //green on
-            }
-            else if (timeCounter == 9)
-            {
-                GreenLight.BackColor = Color.Gray; //green off
-                YellowLight.BackColor = Color.Yellow; //yellow on                
-            }
-            else if (timeCounter == 12)
-            {
-                YellowLight.BackColor = Color.Gray; //yellow off
-                RedLight.BackColor = Color.Red; //red on
-                timeCounter = -1;
+                case 0:
+                    RedLight.BackColor = Color.Red;
+                    break;
+                case 3:
+                    YellowLight.BackColor = Color.Yellow;
+                    //RedLight.BackColor = Color.Gray;
+                    break;
+                case 5:
+                    RedLight.BackColor = Color.Gray;
+                    YellowLight.BackColor = Color.Gray;
+                    GreenLight.BackColor = Color.Green;
+                    break;
+                case 8:
+                    YellowLight.BackColor = Color.Yellow;
+                    GreenLight.BackColor = Color.Gray;
+                    break;
+                case 10:
+                    YellowLight.BackColor = Color.Gray;
+                    RedLight.BackColor = Color.Red;
+                    timeCounter = -1;
+                    break;
             }
             timeCounter++;
         }
