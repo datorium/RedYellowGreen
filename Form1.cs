@@ -13,7 +13,7 @@ namespace RedYellowGreen
     public partial class TrafficLights : Form
     {
         private Timer timerSwitch;
-
+        private int timeCounter = 0;
 
         public TrafficLights()
         {
@@ -32,15 +32,32 @@ namespace RedYellowGreen
 
         private void TimerSwitch_Tick(object sender, EventArgs e)
         {
-            
-            if(RedLight.BackColor == Color.Gray)
+            if(timeCounter == 0)
             {
-                RedLight.BackColor = Color.Red;
+                RedLight.BackColor = Color.Red; //red on
             }
-            else
+            else if(timeCounter == 3)
             {
-                RedLight.BackColor = Color.Gray;
+                RedLight.BackColor = Color.Gray; //red off
+                YellowLight.BackColor = Color.Yellow; //yellow on
             }
+            else if (timeCounter == 6)
+            {
+                YellowLight.BackColor = Color.Gray; //yellow off
+                GreenLight.BackColor = Color.Green; //green on
+            }
+            else if (timeCounter == 9)
+            {
+                GreenLight.BackColor = Color.Gray; //green off
+                YellowLight.BackColor = Color.Yellow; //yellow on                
+            }
+            else if (timeCounter == 12)
+            {
+                YellowLight.BackColor = Color.Gray; //yellow off
+                RedLight.BackColor = Color.Red; //red on
+                timeCounter = -1;
+            }
+            timeCounter++;
         }
 
         private void InitializeTrafficLights()
