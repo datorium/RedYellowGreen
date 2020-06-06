@@ -72,7 +72,11 @@ namespace RedYellowGreen
                     YellowLight.BackColor = Color.Gray;
                     GreenLight.BackColor = Color.Green;
                     break;
+                case 6:
+                    timerBlink.Start();
+                    break;
                 case 8:
+                    timerBlink.Stop();
                     YellowLight.BackColor = Color.Yellow;
                     GreenLight.BackColor = Color.Gray;
                     break;
