@@ -84,11 +84,33 @@ namespace RedYellowGreen
         private void TimerSwitch_Tick(object sender, EventArgs e)
         {
             UpdateClock();
+            UpdateLabelTime();
             SwitchLights();            
         }
 
         private void UpdateClock()
         {
+            sec++;
+            if(sec == 60)
+            {
+                min++;
+                sec = 0;
+            }
+            if(min == 60)
+            {
+                hou++;
+                min = 0;
+            }
+            if(hou == 100)
+            {
+                hou = 0;
+            }
+        }
+
+        private void UpdateLabelTime()
+        {
+            //labelTime.Text = hou.ToString("00") + ":" + min.ToString("00") + ":" + sec.ToString("00");
+            labelTime.Text = $"{hou.ToString("00")}:{min.ToString("00")}:{sec.ToString("00")}";
 
         }
 
