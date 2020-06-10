@@ -15,6 +15,8 @@ namespace RedYellowGreen
         private Timer timerSwitch = null;
         private Timer timerBlink = null;
         private int timeCounter = 0;
+        private int hou = 0, min = 0, sec = 0;
+
         private PictureBox lightToBlink = null;
         private Color colorToCheck = Color.Gray;
         private Label labelTime = null;
@@ -81,7 +83,13 @@ namespace RedYellowGreen
 
         private void TimerSwitch_Tick(object sender, EventArgs e)
         {
-            SwitchLights();
+            UpdateClock();
+            SwitchLights();            
+        }
+
+        private void UpdateClock()
+        {
+
         }
 
         private void SwitchLights()
